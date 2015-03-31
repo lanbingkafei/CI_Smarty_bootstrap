@@ -1,0 +1,52 @@
+<html>
+<head>
+	<title>bian</title>
+	<meta charset="utf-8" />
+	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		function demo(){
+			var values1=testAsync();
+			var backdata = "您提交的姓名为：" + values1.name +  
+			"<br /> 您提交的密码为：" + values1.password;  
+			$("#backdata").html(backdata);  
+			$("#backdata").css({color: "red"});
+		}
+
+
+
+		function testAsync() {
+		    //定义一个全局变量来接受$post的返回值
+		    var result;
+		    //用ajax的“同步方式”调用一般处理程序
+		    $.ajax({
+		        url: "<{$URL1}>/example/ajaxjson/format/json",
+		        //url: "/project/CI/index.php/example/perfdata/format/json",
+		        async: false,//改为同步方式
+		        type: "post",
+		        data:{name:$("#name").val(),password:$("#password").val()},
+		        success: function (DataValue) {
+		            result = DataValue;
+		        }
+		    });
+		    return result;
+		}
+    </script>
+
+</head>
+<body>
+	
+<p><label for="name">姓名：</label>  
+<input id="name" name="name" type="text" />  
+</p>  
+  
+<p><label for="password">密码：</label>  
+<input id="password" name="password" type="password" />  
+</p>  
+  
+<span id="backdata"></span>  
+<p><input id="subbtn" type="button" value="提交数据" onclick="demo()" /></p>  
+
+</body>
+</html>
+
+

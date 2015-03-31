@@ -1,0 +1,107 @@
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			Redis监控
+			<small>
+				<i class="icon-double-angle-right"></i>
+				搜索 &amp; 管理
+			</small>
+		</h1>
+	</div><!-- /.page-header -->
+
+	<div class="row">
+		 <div id="dt_example">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="table-header">
+						结果展示
+					</div>
+
+					  <table class="table table-striped table-bordered table-hover"id="example">
+					        <thead>
+					          <tr>
+						          <th>IP</th>
+						          <th>端口</th>
+						          <th>角色</th>
+						          <th>命中率</th>
+						          <th>未命中率</th>					      
+					          </tr>
+					        </thead>
+						    <tbody>
+									<tr>
+										<td colspan="5">Loading data from server</td>
+									</tr>
+						    </tbody>
+						    <!--tfoot>
+						          <tr>
+						            <th>IP</th>
+						            <th>端口</th>
+						            <th>角色</th>
+						            <th>命中率</th>
+						            <th>未命中率</th>
+						          </tr>
+						    </tfoot-->
+					  </table>
+				</div>
+			</div>
+
+
+
+
+<script>
+
+	$(document).ready(function() {
+		  $('#example').dataTable( {
+		    "processing": true,
+		    "serverSide": true,
+		    "Filter": false, //过滤功能
+		    "Info": true,//页脚信息
+		    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+		    "stateSave": true,//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+		    "pagingType": "full_numbers",//显示数字的翻页样式
+		    "ajax": {            
+		    	    //"url": "<{$URL1}>/redismonitor/DataAA",
+		    	    "url": "<{$URL1}>/example/data"
+		            //"dataType": "jsonp"
+		        }
+		    //"ajax": "<{$URL1}>/redismonitor/DataAA"
+		  } );
+	} );
+
+ </script>
+
+
+
+
+
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+
+
+		<!--script src="<{$public}>public/templates/assets/js/jquery.min.js"></script-->
+
+
+
+
+		<!--script src="<{$public}>public/templates/assets/js/bootstrap.min.js"></script-->
+		<!--script src="http://172.16.246.132:8112/Public/media/js/DT_bootstrap.js"></script-->
+
+
+
+		
+		<!-- ace scripts -->
+
+		<script src="<{$public}>public/templates/assets/js/ace-elements.min.js"></script>
+		<script src="<{$public}>public/templates/assets/js/ace.min.js"></script>
+
+
+
+
+</body>
+</html>
+

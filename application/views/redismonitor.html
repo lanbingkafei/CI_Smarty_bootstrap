@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+       <script src="<{$url}>public/assets/js/jquery.min.js"></script>
+  	<script src="<{$url}>public/highcharts/highcharts.js"></script>
+	<script src="<{$url}>public/highcharts/modules/exporting.js"></script>
+	<script src="<{$url}>public/highcharts/modules/funnel.js"></script>  
+<!--meta http-equiv="refresh" content="20"--> 
+<script>
+
+$(function () {
+
+  // $.get( "http://chart.dangdang.com:8888/index.php/Home/Blog/redismonitor", function(data) { result=data ;alert(result)},"json");
+
+
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '服务器IP:<{$HOST}>----redis缓存命中率'
+        },
+        tooltip: {
+    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '缓存命中率：',
+            data: 
+                <{$name}>
+            
+        }]
+    });
+});
+
+
+</script>
+</head>
+<body>
+  <div>
+        <a href='<{$url}>index.php/example/usermodel/id/1/format/json'>json接口</a>
+	<br/>
+        <a href='<{$url}>index.php/example/usermodel/id/1/format/xml'>xml接口</a>
+        <br/>
+	<a href='<{$url}>index.php/example/usermodel/id/1/format/php'>php接口</a>
+  </div>
+  <div id="container" style="min-width:700px;height:400px"></div>
+</body>
+</html>

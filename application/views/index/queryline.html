@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>bian</title>
+	<meta charset="utf-8" />
+	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		function check(){
+			var aData=testAsync();
+			if(aData.login==1){
+				$('#message').css({display:'block'});
+				$('.error').html('用户名存在');				
+
+			}
+		}
+
+		function testAsync() {
+		    //定义一个全局变量来接受$post的返回值
+		    var result;
+		    //用ajax的“同步方式”调用一般处理程序
+		    $.ajax({
+		        url: "<{$URL1}>/example/perfdata/format/json",
+		        //url: "/project/CI/index.php/example/perfdata/format/json",
+		        async: false,//改为同步方式
+		        type: "post",
+		        success: function (DataValue) {
+		            result = DataValue;
+		        }
+		    });
+		    return result;
+		}
+    </script>
+
+</head>
+<body>
+	
+<h1>ajax异步调用演示</h1>
+
+
+	<button  type="button" onclick="check()">异步调用</button>
+    <div id="message" style="display:none">
+    <p class="error"></p>
+
+
+</body>
+</html>
+
+

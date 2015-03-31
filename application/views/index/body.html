@@ -1,0 +1,230 @@
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			控制台
+			<small>
+				<i class="icon-double-angle-right"></i>
+				监控
+			</small>
+		</h1>
+	</div><!-- /.page-header -->
+
+	<div class="row">
+		<div class="col-xs-12">
+		<!--饼图部分 -->
+			<div class="row">
+							<div class="col-xs-12">
+								<div class="alert alert-block alert-success">
+									<button type="button" class="close" data-dismiss="alert">
+										<i class="icon-remove"></i>
+									</button>
+
+									<i class="icon-ok green"></i>
+
+									Redis命中率监控，IP：
+									<strong class="green">
+										<{$HOST1}>
+									</strong>	
+								</div>
+							</div>
+							<!-- bing监控图-->
+							<div class="col-xs-12">
+								<div id="pie1" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+							</div>
+			</div>
+
+	<script src="<{$public}>public/echart/js/echarts.js"></script>
+
+	<script type="text/javascript">
+
+
+	    require.config({
+	        paths: {
+	            echarts: '<{$public}>public/echart/js'
+	        }
+	    });
+	    
+
+	    require(
+	        [
+	            'echarts',
+	            'echarts/chart/pie',
+	            'echarts/chart/line',
+	            'echarts/chart/bar',
+	            'echarts/chart/scatter',
+	            'echarts/chart/k',
+	            'echarts/chart/radar',
+	            'echarts/chart/force',
+	            'echarts/chart/chord',
+	            'echarts/chart/gauge',
+	            'echarts/chart/funnel',
+	            'echarts/chart/eventRiver',
+	            'echarts/chart/map'
+	        ],
+	        function (ec) {
+	            //--- 饼图 ---
+	            var myChart = ec.init(document.getElementById('pie1'));
+	            var option1 = {
+	                title : {
+	                    text: 'Redis缓存命中率',
+	                    subtext: 'IP:<{$HOST1}>---缓存命中率',
+	                    x:'center'
+	                },
+	                tooltip : {
+	                    trigger: 'item',
+	                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+	                },
+	                legend: {
+	                    orient : 'vertical',
+	                    x : 'left',
+	                    data:['命中率','未命中率']
+	                },
+	                toolbox: {
+	                    show : true,
+	                    feature : {
+	                        mark : {show: true},
+	                        dataView : {show: true, readOnly: false},
+	                        magicType : {
+	                            show: true, 
+	                            type: ['pie', 'funnel'],
+	                            option: {
+	                                funnel: {
+	                                    x: '25%',
+	                                    width: '50%',
+	                                    funnelAlign: 'left',
+	                                    max: 1548
+	                                }
+	                            }
+	                        },
+	                        restore : {show: true},
+	                        saveAsImage : {show: true}
+	                    }
+	                },
+	                calculable : true,
+	                series : [
+	                    {
+	                        name:'访问来源',
+	                        type:'pie',
+	                        radius : '55%',
+	                        center: ['50%', '60%'],
+	                        data:[
+	                            <{$XV}>,
+	                            <{$YV}>,
+	                        ]
+	                    }
+	                ]
+	            };
+
+
+	            myChart.setOption(option1);
+	            
+	 
+	        }
+	    );
+	</script>
+
+	<script type="text/javascript">
+
+	    require.config({
+	        paths: {
+	            echarts: '<{$public}>public/echart/js'
+	        }
+	    });
+	    
+
+	    require(
+	        [
+	            'echarts',
+	            'echarts/chart/bar',
+	            'echarts/chart/line',
+	            'echarts/chart/map'
+	        ],
+	        function (ec) {
+	            //--- 饼图 ---
+	            var myChart = ec.init(document.getElementById('main'));
+	            var option = {
+	                title : {
+	                    text: '性能趋势图',
+	                    subtext: 'TPS&版本号'
+	                },
+	                tooltip : {
+	                    trigger: 'axis'
+	                },
+	                legend: {
+	                    data:['平均TPS','最低TPS']
+	                },
+	                toolbox: {
+	                    show : true,
+	                    feature : {
+	                        mark : {show: true},
+	                        dataView : {show: true, readOnly: false},
+	                        magicType : {show: true, type: ['line', 'bar']},
+	                        restore : {show: true},
+	                        saveAsImage : {show: true}
+	                    }
+	                },
+	                calculable : true,
+	                xAxis : [
+	                    {
+	                        type : 'category',
+	                        boundaryGap : false,
+	                        data : <{$softver}>
+	                    }
+	                ],
+	                yAxis : [
+	                    {
+	                        type : 'value',
+	                        axisLabel : {
+	                            formatter: '{value} 个/s'
+	                        }
+	                    }
+	                ],
+	                series : [
+	                    {
+	                        name:'平均TPS',
+	                        type:'line',
+	                        data:<{$avgTPS}>,
+	                        markPoint : {
+	                            data : [
+	                                {type : 'max', name: '最大值'},
+	                                {type : 'min', name: '最小值'}
+	                            ]
+	                        },
+	                        markLine : {
+	                            data : [
+	                                {type : 'average', name: '平均值'}
+	                            ]
+	                        }
+	                    },
+	                    {
+	                        name:'最高TPS',
+	                        type:'line',
+	                        data:[180, 180, 180, 190, 199, 150, 140],
+
+	                    },
+	                    {
+	                        name:'最低TPS',
+	                        type:'line',
+	                        data:[100, 56, 20, 50, 30, 20, 0],
+	                        markPoint : {
+	                            data : [
+	                                {name : '最低', value : 0, xAxis: 1, yAxis: 0}
+	                            ]
+	                        },
+	                        markLine : {
+	                            data : [
+	                                {type : 'average', name : '平均值'}
+	                            ]
+	                        }
+	                    }
+	                ]
+	            };
+
+
+	            myChart.setOption(option);
+	            
+	 
+	        }
+	    );
+	</script>
+
