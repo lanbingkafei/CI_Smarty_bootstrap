@@ -51,7 +51,7 @@ $active_record = TRUE;
  // $db['development']['hostname'] = 'mysql:dbname=test;host=10.255.254.63';
  $db['development']['hostname'] = '10.255.254.63';
 $db['development']['username'] = 'writeuser';
-$db['development']['password'] = 'ddbackend';
+$db['development']['password'] = '';
 $db['development']['database'] = 'test';
 $db['development']['dbdriver'] = 'mysqli';
 $db['development']['dbprefix'] = '';
