@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<!--
+
+  Created using /
+  Source can be edited via /untitled/edit
+
+-->
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    
+    <title>DataTables分页显示</title>
+
+
+<link rel="stylesheet" type="text/css" href="./css/jquery.dataTables.css">
+  <script type="text/javascript" language="javascript" src="./js/jquery.js"></script>
+  <script type="text/javascript" language="javascript" src="./js/jquery.dataTables.js"></script>
+
+
+  </head>
+  <body id="dt_example">
+    <div id="container">
+      <h1>分页显示</h1>
+
+      <table class="display" id="example">
+        <thead>
+          <tr>
+            <th>渲染引擎</th>
+            <th>浏览器</th>
+            <th>平台</th>
+            <th>引擎版本</th>
+            <th>CSS版本</th>
+          </tr>
+        </thead>
+        <tbody>
+			<tr>
+				<td colspan="5">Loading data from server</td>
+			</tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>渲染引擎</th>
+            <th>浏览器</th>
+            <th>平台</th>
+            <th>引擎版本</th>
+            <th>CSS版本</th>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+
+<script>
+
+$(document).ready(function() {
+  $('#example').dataTable( {
+    "processing": true,
+    "serverSide": true,
+    "Filter": false, //过滤功能
+    "Info": true,//页脚信息
+    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+    "stateSave": true,//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+    "pagingType": "full_numbers",//显示数字的翻页样式
+    "ajax": "./server.php"
+  } );
+} );
+
+  </script>
+
+
+<!--
+  <script>
+$(document).ready(function() {
+	$('#example').dataTable( {
+		"bProcessing": true,
+		"bServerSide": true,
+    "bFilter": true, //过滤功能
+    "bInfo": true,//页脚信息
+    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+    "bStateSave": true,//状态保存，使用了翻页或者改变了每页显示数据数量，会保存在cookie中，下回访问时会显示上一次关闭页面时的内容。
+    "pagingType": "full_numbers",//显示数字的翻页样式
+		/*使用post方式
+		"fnServerData": function ( sSource, aoData, fnCallback ) {
+            $.ajax( {
+                "dataType": 'json',
+                "type": "POST",
+                "url": sSource,
+                "data": aoData,
+                "success": fnCallback
+            } );
+        }*/
+		"sAjaxSource": "./server.php",
+		"oLanguage": {
+			"sUrl": "cn.txt"
+		},
+		"aoColumns": [
+			{ "sName": "platform" },
+            { "sName": "version" },
+            { "sName": "engine" },
+            { "sName": "browser" },
+            { "sName": "grade" }
+        ]//$_GET['sColumns']将接收到aoColumns传递数据
+	} );
+} );
+</script>
+
+-->
+</body>
+</html>
